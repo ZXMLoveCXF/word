@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>jquery输入框键入文字动画特效|DEMO_jQuery之家-自由分享jQuery、html5、css3的插件库</title>
+	<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/htmleaf-demo.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<div class="htmleaf-container">
+		<header class="htmleaf-header">
+			<h1>jquery输入框键入文字动画特效 <span>Animating typed chars</span></h1>
+			<div class="htmleaf-links">
+				<a class="htmleaf-icon icon-htmleaf-home-outline" href="http://www.htmleaf.com/" title="jQuery之家" target="_blank"><span> jQuery之家</span></a>
+				<a class="htmleaf-icon icon-htmleaf-arrow-forward-outline" href="http://www.htmleaf.com/jQuery/Form/201708034664.html" title="返回下载页" target="_blank"><span> 返回下载页</span></a>
+			</div>
+		</header>
+		<div class="flex_container">
+		  <h3>在下面输入字母看看效果</h3>
+		  <form>
+		    <div class="input_wrap">
+		      <input type="text" placeholder="Please type" />
+		      <div class="after"></div>
+		    </div>
+		  </form>
+		</div>
+		
+	</div>
+	
+	<script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
+	<script>window.jQuery || document.write('<script src="js/jquery-1.11.0.min.js"><\/script>')</script>
+	<script type="text/javascript">
+		(function($) {
+		  function getRandomInt(min, max) {
+		    return Math.floor(Math.random() * (max - min + 1)) + min;
+		  }
+		  $.fn.animChars = function(options) {
+		    var params = $.extend(
+		      {
+		        duration: 1,
+		        upperLimit: 150,
+		        sizeInterval: [15, 80]
+		      },
+		      options
+		    );
+		    $(this).keypress(function(e) {
+		      console.log(this.selectionStart)
+		      var rand = getRandomInt(1, 9);
+		      var randP = Math.floor(Math.random() * 10);
+		      randP < 5 ? (randP = rand) : (randP = rand - rand * 2);
+
+		      var c = String.fromCharCode(e.which);
+		      $(this).parent().append("<span class='cl" + rand + "'>" + c + "</span>");
+
+		      $(this)
+		        .parent()
+		        .find("span.cl" + rand + "")
+		        .css({
+		          left: getRandomInt(0, 90) + "%",
+		          "font-size": getRandomInt(
+		            params.sizeInterval[0],
+		            params.sizeInterval[1]
+		          )
+		        })
+		        .fadeIn(100, function() {
+		          $(this)
+		            .css({
+		              "margin-bottom": getRandomInt(
+		                params.upperLimit - params.upperLimit / 2
+		                  ? params.upperLimit / 2
+		                  : 0,
+		                params.upperLimit
+		              ),
+		              "margin-left": randP * 10
+		            })
+		            .fadeOut(params.duration * 1000, function() {
+		              $(this).remove();
+		            });
+		        });
+		    });
+		  };
+		})(jQuery);
+
+		$(document).ready(function() {
+		  $("input").animChars({
+		    duration: 0.8,
+		    upperLimit: 200,
+		    sizeInterval: [15, 80]
+		  });
+		});
+	</script>
+</body>
+</html>

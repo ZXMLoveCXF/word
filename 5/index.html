@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN">
+	<head><!-- 页面设计：daiwenzh5|页面制作：daiwenzh5 -->
+		<meta charset="utf-8" >
+		<title>文本打字机</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+	</head>
+	<style>
+		body {
+			overflow: hidden;
+		}
+		ul, li {
+			list-style: none;
+		}
+		li {
+			float: left;
+		}
+		.effect-wrap {
+			display: flex;
+			width: 100%;
+			text-align: center;
+			flex-wrap: wrap;
+		}
+		.effect-wrap li {
+			flex: 30%;
+			margin: 5px 10px;
+			padding: 5px 0;
+			background-color: royalblue;
+			cursor: pointer;
+			color: #fff;
+			text-align: center;
+		}
+		.text {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			margin: auto;
+			width: 50%;
+			height: 100px;
+			background-color: #f99;
+		}
+		.guide {
+			position: absolute;
+			top: calc(50% + 100px);
+			left: 0;
+		}
+		.guide p {
+			padding: 0 50px;
+			text-align: left;
+			height: 300px;
+			overflow-y: scroll;
+		}
+		.title {
+			font-weight: 600;
+			font-size: 30px;
+		}
+		.space {
+			display: inline-block;
+			width: 220px;
+		}
+	</style>
+	<body>
+		<ul class="effect-wrap">
+			<li data-effect="normal">正常 : normal</li>
+			<li data-effect="right" class="effF">近右 : right</li>
+			<li data-effect="left">近左 : left</li>
+			<li data-effect="down">近下 : down</li>
+			<li data-effect="up">近上 : up</li>
+			<li data-effect="random">随机 : random</li>
+			<li data-effect="rightBig">远右 : rightBig</li>
+			<li data-effect="leftBig">远左 : leftBig</li>
+			<li data-effect="downBig">远下 : downBig</li>
+			<li data-effect="upBig">远上 : upBig</li>
+		</ul>
+		<div class="text"></div>
+		<div class="guide">
+			<p><span class="title">调用方法：</span><br>
+				$('选择器').typewriter({<br>
+					text: '这是要输出的文本',<br>
+					effect: 'left', /* 这是打印效果，正常 : normal<br>
+<span class="space"></span>近右 : right<br>
+<span class="space"></span>近左 : left<br>
+<span class="space"></span>近下 : down<br>
+<span class="space"></span>近上 : up<br>
+<span class="space"></span>随机 : random<br>
+<span class="space"></span>远右 : rightBig<br>
+<span class="space"></span>远左 : leftBig<br>
+<span class="space"></span>远下 : downBig<br>
+<span class="space"></span>远上 : upBig */<br>			
+					excute: funtion() {console.log('这是打印期间执行的函数');}<br>
+					complete: funtion() {console.log('这是打印结束后执行的函数');}<br>
+				PS: 本插件依赖animate.css 和jq。<br>
+					配置参数所有属性都是可选项。<br>
+					此外，配置参数也可以是字符串：'stop'停止当前打印，'clear'清除所有打印文本。<br>
+})
+			</p>
+		</div>
+	</body>
+	<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<script src="js/parameter.js"></script>
+	<script>
+			$(function() {
+				let $text = $('.text');
+				$('.effect-wrap').on('click','li',function() {
+					let $this = $(this),
+						$effect = $this.data('effect');
+					$text.typewriter('clear').typewriter({
+						text: '这是' + $effect,
+						effect: $effect,
+						excute: function(timer) {
+							console.log('excute');
+						},
+						complete: function() {
+							console.log('complete');
+						}
+					})
+				})
+			})
+		</script>
+</html>
